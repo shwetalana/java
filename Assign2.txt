@@ -1,0 +1,188 @@
+16)
+ import java.util.Scanner;
+class Ass16{
+public static void main(String args[]){
+Scanner sc = new Scanner(System.in);
+System.out.println("enter the number= ");
+int a = sc.nextInt();
+for(int i=1;i<=10;i++)
+{
+int table = a*i;
+System.out.print(table);
+}
+}
+}
+17)
+ import java.util.Scanner;
+class Assign17{
+public static void main(String args[]){
+Scanner sc = new Scanner(System.in);
+System.out.print("enter the number= ");
+int num = sc.nextInt();
+int digit;
+int rev=0;
+while(num!=0){
+digit=num % 10;
+rev=rev*10+digit;
+num=num/10;
+}
+System.out.println(rev);
+}
+}
+
+18)
+ import java.util.Scanner;
+class Ass18{
+public static void main(String args[]){
+Scanner sc = new Scanner(System.in);
+System.out.print("enter the number= ");
+int a = sc.nextInt();
+if(a==0 || a==1 || a==2)
+System.out.print("not a prime number= ");
+else
+{
+for(int i=2;i<=a/2;i++)
+if(a%i==0)
+{
+System.out.print("Not a prime");
+break;
+
+}
+else {
+if(i==a/2)
+System.out.print("prime");
+else
+continue;
+}
+
+}
+}
+}
+==================================================================
+ import java.util.Scanner;
+class Ass20{
+public static void main(String args[]){
+Scanner sc = new Scanner(System.in);
+System.out.println("enter the first and last number");
+int first = sc.nextInt();
+int last = sc.nextInt();
+int flag;
+
+for(int i=first; i<=last; i++)
+{
+flag = 0;
+for(int j=2;j<=Math.sqrt(i);j++)
+{
+if(i%j==0)
+{
+flag = 1;
+}
+}
+if(flag==0)
+{
+System.out.println(i);
+}
+
+}
+}
+}
+
+=======================================================
+//21.	Program to show sum and average of 10 element array.
+//Accept array elements from user.
+import java.util.Scanner;
+class Q21{
+	public static void main(String args[]){
+		Scanner sc = new Scanner(System.in);
+		int arr[] = new int[10];
+		int sum=0,avg;
+		for(int i=0;i<arr.length;i++){
+			arr[i] = sc.nextInt();
+			sum=sum+arr[i];
+		}
+		avg = sum/arr.length;
+		System.out.println("sum = "+sum);
+		System.out.println("avg = "+avg);
+	}
+} 
+
+======================================================
+
+//22.	Sort a ten element array in descending order.
+class Q22{
+	public static void main(String args[]){
+		int arr[] = {1,2,3,4,5,6,7,8,9,10};
+		int rev,ans;
+		int i;
+		System.out.println("Ascending order");
+		for(i=0;i<10;i++){
+			ans=arr[i];
+			System.out.println(ans);
+		}
+		System.out.println("Descending order");
+		for(int j=9;j>=0;j--){
+			rev = arr[j];
+			System.out.println(rev);
+		}
+	}	
+}
+=========================================================
+//23.	Write a program to reverse the array elements
+
+class Q23{
+	public static void main(String args[]){
+		int arr[] = {1,2,3,4,5,6};
+		int len =arr.length;
+		//System.out.println(len);
+		int arr1[]=new int[len];
+		for(int i=0;i<arr.length;i++){
+			arr1[len-1]=arr[i];
+			len=len-1;
+		}
+		System.out.println("Reverse array");
+		for(int a :arr1){
+			System.out.println(a);	
+		}
+	}	
+}
+===================================================
+//24.	Write a program to search an element in the array.
+import java.util.Scanner;
+class Q24{
+	public static void main(String args[]){
+		Scanner sc = new Scanner(System.in);
+		int num = sc.nextInt();
+		int arr[] = {1,2,3,4,5,6,7,8,9,10};
+		int count=0;
+		for(int i=0;i<arr.length;i++){
+			if(num==arr[i]){
+				count++;
+				System.out.println("Number found");
+				break;
+			}
+		}
+		if(count!=1){
+			System.out.println("Number Not found");
+		}
+	}
+}
+=========================================================
+//25.	Write the program to find the sum of even elements and sum 
+//of odd elements present in the array of integer type.
+
+class Q25{
+	public static void main(String args[]){
+		int arr[] = {1,2,3,4,5,6,7,8,9,10};
+		int oddsum=0;
+		int evensum=0;
+		for(int i=0;i<arr.length;i++){
+			if(arr[i]%2==0){
+				oddsum=oddsum+arr[i];
+			}else{
+				evensum=evensum+arr[i];
+			}
+		}
+		System.out.println("Odd Sum = "+oddsum);
+		System.out.println("Even Sum = "+evensum);
+	}	
+}
