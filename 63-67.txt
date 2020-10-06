@@ -1,0 +1,228 @@
+
+public class Q63 {
+
+
+	  public static void main(String[] args) {
+	    CountCharacters cc = new CountCharacters();
+	    cc.countChars("I am an Indian");
+	  }
+} 
+	  public void countChars(String str){
+	    char[] strArr;
+	    do{
+	      strArr = str.toCharArray();
+	      char ch = strArr[0];
+	      int count = 1;
+	      for(int i = 1; i < strArr.length; i++){
+	        if(ch == strArr[i]){
+	          count++;
+	        }
+	      }
+	      // We don't need to count spaces
+	      if(((ch != ' ') && (ch != '\t'))){
+	        System.out.println(ch + " - " + count);
+	      }
+	      // replace all occurrence of the character 
+	      // which is already iterated and counted
+	      str = str.replace(""+ch, "");
+	    }while(strArr.length > 1);    
+	  }
+	
+====================================================
+64)
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+public class Q64 {
+
+	public static void main(String[] args) {
+		 BufferedReader reader = null;
+         
+	        //Initializing charCount, wordCount and lineCount to 0
+	         
+	        int charCount = 0;
+	         
+	        int wordCount = 0;
+	         
+	        int lineCount = 0;
+	         
+	        try
+	        {
+	            //Creating BufferedReader object
+	             
+	            reader = new BufferedReader(new FileReader("D:\\PG-DAC\\CoreJava\\Fileopr\\A.txt"));
+	             
+	            //Reading the first line into currentLine
+	             
+	            String currentLine = reader.readLine();
+	             
+	            while (currentLine != null)
+	            {
+	                //Updating the lineCount
+	                 
+	                lineCount++;
+	                 
+	                //Getting number of words in currentLine
+	                 
+	                String[] words = currentLine.split(" ");
+	                 
+	                //Updating the wordCount
+	                 
+	                wordCount = wordCount + words.length;
+	                 
+	                //Iterating each word
+	                 
+	                for (String word : words)
+	                {
+	                    //Updating the charCount
+	                     
+	                    charCount = charCount + word.length();
+	                }
+	                 
+	                //Reading next line into currentLine
+	                 
+	                currentLine = reader.readLine();
+	            }
+	             
+	            //Printing charCount, wordCount and lineCount
+	             
+	            System.out.println("Number Of Chars In A File : "+charCount);
+	             
+	            System.out.println("Number Of Words In A File : "+wordCount);
+	             
+	            System.out.println("Number Of Lines In A File : "+lineCount);
+	        } 
+	        catch (IOException e) 
+	        {
+	            e.printStackTrace();
+	        }
+	        finally
+	        {
+	            try
+	            {
+	                reader.close();           //Closing the reader
+	            }
+	            catch (IOException e) 
+	            {
+	                e.printStackTrace();
+	            }
+	        }
+
+	}
+
+}
+====================================================
+65)
+65.Write a program to count number of bytes in a image file(jpeg/png/gif).  Also find how much time it will take to upload the file on server if internet speed is 256 bps(bits per second).
+
+>   
+package AssignPractice;
+
+
+import java.awt.image.BufferedImage;
+
+import java.io.ByteArrayInputStream;
+
+import java.io.ByteArrayOutputStream;
+
+import java.io.File;
+
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+ 
+
+ 
+public class Ques65 {
+	
+public static void main(String[] args) throws IOException
+{
+		
+String dirName="C:\\Users\\Admin\\OneDrive\\Pictures\\Screenshots";
+
+ByteArrayOutputStream baos=new ByteArrayOutputStream(1000);
+	
+BufferedImage img=ImageIO.read(new File(dirName,"dip.png"));
+		
+ImageIO.write(img, "jpg", baos);
+		
+baos.flush();
+ 
+		
+String base64String=Base64.encode(baos.toByteArray());
+	
+baos.close();
+ 
+		
+byte[] bytearray = Base64.decode(base64String);
+ 
+	
+BufferedImage imag=ImageIO.read(new ByteArrayInputStream(bytearray));
+	
+ImageIO.write(imag, "jpg", new File(dirName,"snap.jpg"));
+	
+}
+}
+================================================
+66)
+package IOPrackage;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+class Shopping implements Serializable{
+	private String itemName;
+	private double price;
+	private int quantity;
+	
+	public Shopping(String itemName,double price,int quantity) {
+		this.itemName=itemName;
+		this.price=price;
+		this.quantity=quantity;
+	}
+	@Override
+	public String toString() {
+		return "itemName = "+itemName+", Price = "+price*quantity+", Quantity = "+quantity;
+	}
+}
+
+public class ShoppingDemo {
+
+	public static void main(String[] args) throws IOException {
+	   FileOutputStream file=new FileOutputStream("E:\\core java\\dir\\Shopping.dat");
+       Shopping shop1 =new Shopping("Cloath",2000,3);
+       ObjectOutputStream obj=new ObjectOutputStream(file);
+      
+    	   obj.writeObject(shop1);
+
+       System.out.println("Data Added into Shopping.dat file");
+       obj.close();
+       file.close();
+	}
+
+}
+===============================================
+67)
+package IOPrackage;
+
+import java.io.*;
+public class ShoppingDemo2 {
+
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
+	  FileInputStream file1=new FileInputStream("E:\\core java\\dir\\Shopping.dat");
+     //  Shopping1 shop =new Shopping1("Cloath",2000,2);
+       ObjectInputStream obj1=new ObjectInputStream(file1);
+  
+        Shopping shop=(Shopping)obj1.readObject();
+        System.out.println(shop);
+        
+       obj1.close();
+       System.out.println("Successfully read Data from Shopping.dat file");
+       file1.close();
+	}
+
+}
