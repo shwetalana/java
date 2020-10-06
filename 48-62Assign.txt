@@ -1,0 +1,675 @@
+﻿//48.Create an Abstract class Processor with int member variable data  and method showData to display data value. Create abstract method process() to define processing of member data. Create a class  Factorial using abstract class Processor  to calculate and print factorial of a number by overriding the process method. b. Create a class Circle using abstract class Processor to calculate and print area of a circle by overriding the process method.Ask user to enter choice (factorial or circle area).  Also ask data to work upon. Use Processor class reference to achieve this mechanism.
+
+
+import java.util.Scanner;
+abstract class Processor {
+    double data;
+
+    void showdata(){
+     System.out.println(data);
+    }
+
+    abstract void process();
+}
+
+class factorial extends Processor{
+   void process(){
+        int n =5;
+       int sum=1;
+        for(int i= 1; i<=n; i++){
+            sum = sum *i;
+        }
+        data = sum;
+   }
+}	
+class circle extends Processor{
+    void process(){
+        int r=5;
+        double area;
+        area = 3.14f * r * r;
+        data = area;
+    }
+}
+class Q48{
+public static void main(String args[]){
+    Processor p = new factorial();
+    Processor p1 = new circle();
+      p.process();
+      p1.process();
+      p.showdata();
+      p1.showdata();
+}}
+
+-----------------------------------------------
+//49.Create Interface Taxable with members salesTax=7% and incomeTax=10.5%. create abstract method calcTax(). a. Create class Employee(empId,name,salary) and implement Taxable to calculate incomeTax on yearly salary. b. Create class Product(pid,price,quantity) and implement Taxable to calculate salesTax on unit price of product. c. Create class for main method(Say XYZ), accept employee information and a product information from user and print income tax and sales tax respectively.
+import java.util.Scanner;
+
+interface taxable{
+    double salesTax = 0.07;
+    double incomeTax = 0.10;
+
+   void calcTax();
+}
+
+class Employee implements taxable{
+        int empid;
+        int salary;
+        String name;
+        Employee() {}
+
+        Employee( int empid,int salary,  String name  ){
+            this.empid = empid;
+            this.salary=salary;
+            this.name=name;
+        }
+
+      public void calcTax(){
+             double incomeTax1 = salary * incomeTax ;
+             System.out.println("Total incometax is "+incomeTax1);
+             }
+
+}
+
+class product implements taxable{
+    int pid;
+    int price;
+    int quantity;
+    product() {}
+
+    product( int pid, int price,  int quantity  ){
+        this.pid = pid;
+        this.price=price;
+        this.quantity=quantity;
+    }
+
+  public void calcTax(){
+         double saleTax1 = ( price * quantity ) * salesTax ;
+         System.out.println("Total saletax is "+saleTax1);
+         }
+
+}
+
+class Q49{
+public static void main(String args[]){
+    taxable t = new Employee(1 , 15000, "jack");
+    taxable t1 = new product(1 , 400, 5);
+    t.calcTax();
+    t1.calcTax();
+}}
+--------------------------------------------------------------------------------
+//Q50. Explain the importance of toString() and equals() method of the Object class and override them on class Employee(empId,name,salary).  a. Create class for main method(say XYZ),and accept five employees information and store in an array. Also ensure if entered empId already exist or not (use equals method).  b. Display all employee info using toString method.
+
+//package a1;
+
+import java.util.Scanner;
+
+class Employee{
+	int empId;
+	String empName;
+	Double salary;
+	Employee(int empId,String empName,Double salary){
+		this.empId=empId;
+		this.empName=empName;
+		this.salary=salary;
+	}
+	@Override
+	public String toString() {
+		return "Employee"+ empId + " empName=" + empName + " salary=" + salary ;
+	}
+	int getid() {
+		return empId;
+	}
+}
+public class Q50 {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		Employee arr[]=new Employee[4];
+		int count=0;
+		outer:
+		for(int i=0;i<arr.length;) {
+		//outer:
+			System.out.println("Enter Employee Id,name, salary");
+		int eid=sc.nextInt();
+		//sc.Next();
+		String name1=sc.next();
+		double sal=sc.nextDouble();
+			for(int j=0;j<count;j++) {
+				int k=arr[j].getid();
+		        if(k==eid) {
+		        	System.out.println("These Employee id already exist:");
+		        	continue outer;
+		        }
+			}
+		Employee e1=new Employee(eid,name1,sal);
+		
+		arr[i]=e1;
+		count++;
+		i++;
+		}
+		for(Employee e: arr) {
+			System.out.println(e.toString());
+		}
+	}
+
+}
+
+-----------------------------------------------------------------------
+
+//Q51.	Create a program that helps banks to maintain records. It should have following facilities. o Anybody can create current or saving account with following initial information: account number, name, balance, and branch. o display account detail for a particular accounts. o display total money deposited in bank. o allow deposit and  withdrawal in an account  . o for saving account opening balance and minimum balance must be 5000. o for current account opening balance and minimum balance must be 1000. o can not withdraw the amount from the account that makes balance less than the minimum balance. 
+
+//package a1;
+import java.util.Scanner;
+
+
+
+class Customer{
+	double accountNo;
+	String Name;
+	 double balance;
+	Customer(double accountNo,String Name,double balance){
+		this.accountNo=accountNo;
+		this.Name=Name;
+		this.balance=balance;
+	}
+	@Override
+	public String toString() {
+		return "Account No " + accountNo + ", Name=" + Name + ", balance=" + balance;
+	}
+	 double getaccNo() {
+		 return accountNo;
+	 }
+	 double getbal() {
+		 return balance;
+	 }
+	 void setbal(double balance) {
+		 this.balance=balance;
+	 }
+	
+}
+class savingAcc extends Customer{
+	savingAcc(double accountNo,String Name,double balance){
+		super(accountNo,Name,balance);
+	}
+}
+class currentAcc extends Customer{
+	currentAcc(double accountNo,String Name,double balance){
+		super(accountNo,Name,balance);
+	}
+}
+public class Q51 {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		Customer c[]= new Customer[2];
+		
+		int i=0;
+		/*for(int i=0;i<c.length;i++) {
+		System.out.println("Enter Saving Account details");
+		double acc=sc.nextDouble();
+		String name=sc.next();
+		double bal=sc.nextDouble();
+		Customer c1=new savingAcc(acc,name,bal);
+		c[i]=c1;
+		}
+		System.out.println("");
+		for(int i=0;i<c2.length;i++) {
+			System.out.println("Enter Current Account details");
+			double acc=sc.nextDouble();
+			String name=sc.next();
+			double bal=sc.nextDouble();
+			Customer c3=new currentAcc(acc,name,bal);
+			c2[i]=c3;
+			}
+		System.out.println("");
+		System.out.println("Saving Account details");
+		for(Customer s: c) {
+			System.out.println(s.toString());
+		}
+		System.out.println("");
+		System.out.println("Current Account details");
+		for(Customer s1: c2) {
+			System.out.println(s1.toString());
+		}*/
+		while(true) {
+		System.out.println("Enter Your Choice");
+		System.out.println("1.Add Saving Account Details\n2.Add Current Account Details\n"
+				+ "3.Enter Amount in Account\n4.withdraw Amount from Account\n5.Display Information Of ACcounts\n6.Display Information Of Particular ACcounts\n7.Exit");
+		int ch=sc.nextInt();
+		switch(ch) {
+		case 1:{
+			System.out.println("Enter Saving Account details");
+			double acc=sc.nextDouble();
+			String name=sc.next();
+			double bal=sc.nextDouble();
+			//Customer c1=new savingAcc(acc,name,bal);
+			//c[i]=c1;
+			c[i]=new savingAcc(acc,name,bal);
+			i++;}
+			break;
+		case 2:{
+			System.out.println("Enter Current Account details");
+			double acc=sc.nextDouble();
+			
+			String name=sc.next();
+			double bal=sc.nextDouble();
+			//Customer c3=new currentAcc(acc,name,bal);
+			//c[i]=c3;
+			c[i]=new currentAcc(acc,name,bal);
+			i++;}
+			break;
+		case 3:	
+			System.out.println("Enter Account Number");
+			double k2=sc.nextDouble();
+			for(Customer cc: c) {
+				if(cc.getaccNo()== k2) {
+					System.out.println("Enter Amount You Want to deposite");
+					double k3=sc.nextDouble();
+					double b=cc.getbal()+k3;
+					cc.setbal(b);
+				}
+			}
+		case 4:	
+			System.out.println("Enter Account Number");
+			double k4=sc.nextDouble();
+			for(Customer cc: c) {
+				if(cc.getaccNo()== k4) {
+					System.out.println("Enter Amount You Want to withdraw");
+					double k3=sc.nextDouble();
+					if(cc instanceof savingAcc) {
+					if(cc.getbal()>5000 && cc.getbal()> (5000+k3)) {
+					double b=cc.getbal()-k3;
+					cc.setbal(b);
+					}
+					else {
+						System.out.println("Minimum Balance Is low.Saving Account Minimum balance should be 5000");
+					}}
+					else if(cc instanceof currentAcc) {
+						if(cc.getbal()>1000 && cc.getbal()> (1000+k3)) {
+							double b=cc.getbal()-k3;
+							cc.setbal(b);
+							}
+							else {
+								System.out.println("Minimum Balance Is low.Current Account Minimum balance should be 1000");
+							}
+					}
+				}
+			}
+			break;
+		case 5:	
+			for(Customer cc:c) {
+				if(cc  instanceof savingAcc) {
+				System.out.println("Saving Account DEtails");
+				System.out.println(cc.toString());
+				}
+				else if(cc  instanceof currentAcc) {
+					System.out.println("Current Account DEtails");
+					System.out.println(cc.toString());
+				}
+			}
+			break;
+		case 6:System.out.println("Enter Accout number:\n");{
+		       double k1=sc.nextDouble();
+		       for(Customer cc:c) {
+		    	   if(cc.getaccNo()==k1) {
+		    		   System.out.println(cc.toString());   
+		    	   }
+		       }}
+			break;
+			
+		case 7 :return;	
+		}
+	}
+
+}
+}
+-----------------------------------------------------------------------------
+//Q52.Input name of a person and count how many vowels it contains.  Use String class functions. 
+
+package a2;
+import java.util.Scanner;
+public class Q52 {
+	public static void main(String args[]) {
+	System.out.println("Enter String: ");
+	Scanner sc=new Scanner(System.in);
+  int count=0;
+  String str=sc.nextLine();
+  for(int i=0;i<str.length();i++) {
+	  if(str.charAt(i)=='a' || str.charAt(i)=='e' || str.charAt(i)=='i' || str.charAt(i)=='o' || str.charAt(i)=='u' ) {
+		  count++;
+	  }
+  }
+  System.out.print("Total Number Of vowels is: "+count);
+}
+}
+
+--------------------------------------------------------------------------
+
+//Q53.Input data exactly in the following format, and print sum of all integer values. “67, 89, 23, 67, 12, 55, 66”.   (Hint use String class split method and Integer class parseInt method) .
+
+package a2;
+
+public class Q53 {
+
+	public static void main(String[] args) {
+		String s[]= {"1","2","3","4","5","6","7"};
+		double sum=0;
+		for(String ss:s) {
+			int a=Integer.parseInt(ss);
+			sum+=a;
+		}
+		System.out.println("Sum of Integers are:"+sum);
+	}
+
+}
+
+--------------------------------------------------------------------------
+
+//Q54.Write a program to reverse the given String.
+
+package a2;
+
+public class Q54 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String str="Rupali";
+		/*1st methodchar str1[]=str.toCharArray();
+		for(int i=str1.length-1;i>=0;i--) {
+			System.out.print(str1[i]);
+		}*/
+		
+	/*2nd method	StringBuilder s=new StringBuilder();
+		s.append(str);
+		s=s.reverse();
+		System.out.print(s);*/
+	StringBuffer ss=new StringBuffer(str);
+	ss.reverse();
+	System.out.print(ss);
+      
+}
+}
+
+--------------------------------------------------------------------
+
+//Q55.Write a program to count no of words in the String.
+
+package a2;
+import java.util.Scanner;
+public class Q55 {
+	public static void main(String args[]) {
+		Scanner sc=new Scanner(System.in);
+  String str1="Rupali PAngare";
+  String str3=sc.nextLine();
+  String str2[]=str3.split(" ");
+  int i=str2.length;
+  System.out.print(i);
+}
+}
+-----------------------------------------------------------------
+
+//Q56.Write a program to convert very first character of every word in uppercase in a String.
+
+package a3;
+import java.util.Scanner;
+public class Q56 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		StringBuffer s=new StringBuffer();
+		char ch=' ';
+		String str="rrrr gggg";
+		for(int i=0;i<str.length();i++) {
+			if(ch==' ' && str.charAt(i)!=' ') 
+				s.append(Character.toUpperCase(str.charAt(i)));
+		   else
+		                s.append(str.charAt(i)); 
+				ch=str.charAt(i);
+			
+		}
+		
+		System.out.print(s.toString().trim());
+	}
+
+}
+----------------------------------------------------------------------
+
+//Q57.Write a program to reverse every word of the String.
+
+package a3;
+import java.util.Scanner;
+public class Q57 {
+	public static void main(String args[]){
+	Scanner sc=new Scanner(System.in);
+	String str=sc.nextLine();
+	String reverceWord="";
+	String str1[]=str.split(" ");
+	
+	for(String ss:str1) {
+		StringBuilder ss1=new StringBuilder(ss);
+		ss1.reverse();
+		reverceWord+=ss1+" ";
+	}
+	System.out.print(reverceWord);
+	
+}
+}
+
+----------------------------------------------------------------
+
+//Q58.Store name of weekdays in an array (starting from “Sunday” at 0 index). Ask day position from user and print day name. Handle array index out of bound exception and give proper message if user enter day index outside range (0-6). 
+
+package a3;
+import java.util.Scanner;
+public class Q58 {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		String str2[]= {"Sun","Tue","Wed","Thur","Fri","Sat","Mon"};
+		int a=sc.nextInt();
+		for(int i=0;i<str2.length;i++) {
+			if(i==(a-1)) {
+				System.out.print(str2[i]);
+				break;
+			}
+		}
+		
+
+	}
+
+}
+
+---------------------------------------------------------------------
+
+//59.	Create a class Voter(voterId, name, age) with parameterized constructor.  The parameterized constructor
+//should throw a checked exception if age is less than 18. The message of exception is “invalid age for voter ” 
+import java.util.*;
+class Voterage extends Exception{
+	private int voterId;
+	private String name;
+	private int age;
+	Voterage(){
+		super("Invalid age for voter..");
+	}
+	Voterage(int voterId, String name, int age){
+		this.voterId=voterId;
+		this.name=name;
+		this.age=age;
+	}
+}
+public class Q59{
+	
+	static void ageV(int Vage)throws Voterage  {
+		if(Vage>18) {
+			System.out.println("Age = "+Vage);
+	}else {
+		throw new Voterage();
+	}
+	}	
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter Age");
+		int a = sc.nextInt();
+		try {
+			ageV(a);
+		}catch(Voterage e) {
+			System.out.println(e);
+		}
+		//sc.close();
+	}
+
+}
+
+--------------------------------------------------------------
+
+//60.Create Interface StudentFee and declare following method.  getFee() throws InvalidFeeException. This method ask fees from 
+//user and throws exception if user enters invalid or negative fees Create class Student with members (name, fees) and 
+//implement the StudentFee Interface.
+
+import java.util.*;
+
+interface StudentFee
+{
+	int getFee() throws Exception;
+}
+class StudentChild implements StudentFee{
+	private int fee;
+	public int getFee() throws Exception
+	{
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter fee : ");
+		fee=sc.nextInt();
+		if(fee<=0 || fee >100000)
+		{
+			throw new Exception("Invalid fee");
+		}
+		return fee;
+		}
+}
+public class Q60 {
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		try {
+			StudentChild c=new StudentChild();
+			System.out.println(c.getFee());
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		
+		
+sc.close();			
+	}
+
+}
+--------------------------------------------------------------------
+
+/*61.	Create a Thread class to print following star (*) pattern on screen with delay 
+  of 1 second between each * print. Number of lines in the pattern 
+  should be passed to the constructor of Thread class.  
+  *  * * * *  * * * * * * * * * * Use this class in main method and 
+   ask user to enter number of lines to print.*/
+
+
+//package com.p1;
+
+import java.util.Scanner;
+
+class MyThread extends Thread{
+	int row;
+	
+	MyThread(int row){
+		this.row = row;
+	}
+	
+	@Override
+	public void run() {
+		for(int i=0; i<row; i++) {
+			
+			for(int j=0; j<=i; j++) {
+				System.out.print("* ");
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			System.out.println();
+			
+		}
+	};
+}
+
+public class Q61 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the number of rows : ");
+		int row = sc.nextInt();
+		
+		MyThread m = new MyThread(row);
+		m.start();
+	}
+
+}
+
+------------------------------------------------------------------
+
+/*62.	Create a class that checks whether a given number is prime or not using  Runnable interface.*/
+
+
+//package com.p1;
+
+import java.util.Scanner;
+
+class PrimeCheck implements Runnable{
+
+	int num;
+	
+	
+	PrimeCheck(int num){
+		this.num = num;
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		int i;
+		for(i=2; i<num/2; i++) {
+			if(num%i == 0) {
+				System.out.println(+num+" is not a Prime number");
+				break;
+			}
+		}
+		if(num%i != 0) {
+			System.out.println(num+" is a Prime number");
+		}
+	}
+	
+}
+
+public class Q62 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter a number to check if it is a Prime number or not : ");
+		int num = sc.nextInt();
+		
+		PrimeCheck p = new PrimeCheck(num);
+		Thread t = new Thread(p);
+		
+		t.start();
+	}
+
+}
+
+--------------------------------------------------------------------------
